@@ -17,17 +17,31 @@ library(openxlsx)
 
 ### IMPORTANDO DADOS ###
 
-cagedajust_bruto <- openxlsx::read.xlsx(xlsxFile = "novocaged202112.xlsx", 
+cagedbruto_ajust <- openxlsx::read.xlsx(xlsxFile = "novocaged202112.xlsx", 
                                         sheet = 14, 
                                         startRow = c(5), 
                                         colNames = TRUE, 
                                         na.strings = "---", 
                                         fillMergedCells = TRUE)
 
-colnames(cagedajust_bruto) <- paste0(names(cagedajust_bruto), cagedajust_bruto[1, ]) #concatenando col name com a primeira linha
-cagedajust_bruto[,4:101] <- lapply(cagedajust_bruto[,4:101], as.numeric) #convertendo para formato numerico.
-cagedajust_bruto <- cagedajust_bruto[-1,] #excluindo a primeira linha do df.
-cagedajust_bruto <- dplyr::select(cagedajust_bruto, -contains(c("Variação Relativa (%)", "Acumulado.no.Ano")))
+colnames(cagedbruto_ajust) <- paste0(names(cagedbruto_ajust), cagedbruto_ajust[1, ]) #concatenando col name com a primeira linha
+cagedbruto_ajust <- cagedbruto_ajust[-1,] #excluindo a primeira linha do df.
+cagedbruto_ajust <- dplyr::select(cagedbruto_ajust, -contains(c("Variação Relativa (%)", "Acumulado.no.Ano"))) #retirando colunas
+cagedbruto_ajust[,4:101] <- lapply(cagedbruto_ajust[,4:101], as.numeric) #convertendo para formato numerico.
+
+# Renomeando variáveis-texto
+cagedbruto_ajust <- cagedbruto_ajust %>%
+        dplyr::rename(UF = starts_with("UF"),
+                      Codigo = starts_with("Código"),
+                      Municipio = starts_with("Município")
+                      )
+
+
+
+##### Selecionando os dados de saldo do Novo Caged
+
+cagedsaldo_ajust <- cagedbruto_ajust %>% 
+        dplyr::select(UF:Municipio, contains("Saldos"))
 
 
 
