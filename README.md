@@ -1,2 +1,3 @@
 # NovoCagedR
-Dados do Ministério da Economia - Novo CAGED
+Dados do Ministério do Trabalho - Novo CAGED. 
+Projeto com objetivo de tratar e analisar os dados de empregos formais disponibilizados pelo Ministério do Trabalho - Novo Caged.
