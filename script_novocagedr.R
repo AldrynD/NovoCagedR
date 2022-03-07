@@ -7,6 +7,7 @@
 
 #################################################################
 
+
 #Analisando dados do Novo Caged (MT/PDET)
 
 ###Pacotes utilizados
