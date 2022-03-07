@@ -41,7 +41,13 @@ cagedbruto_ajust <- cagedbruto_ajust %>%
 ##### Selecionando os dados de saldo do Novo Caged
 
 cagedsaldo_ajust <- cagedbruto_ajust %>% 
-        dplyr::select(UF:Municipio, contains("Saldos"))
+        dplyr::select(c(UF:Municipio, contains("Saldos"))) %>% 
+        pivot_longer(
+                cols = -c(UF:Municipio),
+                names_to = "Periodo",
+                values_to = "Saldo"
+        )
+
 
 
 
