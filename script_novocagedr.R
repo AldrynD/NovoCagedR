@@ -30,6 +30,17 @@ cagedbruto_ajust <- cagedbruto_ajust[-1,] #excluindo a primeira linha do df.
 cagedbruto_ajust <- dplyr::select(cagedbruto_ajust, -contains(c("Variação Relativa (%)", "Acumulado.no.Ano"))) #retirando colunas
 cagedbruto_ajust[,4:101] <- lapply(cagedbruto_ajust[,4:101], as.numeric) #convertendo para formato numerico.
 
+
+codmunicipio <- readxl::read_xls(path = "RELATORIO_DTB_BRASIL_MUNICIPIO.xls")
+
+c <- codmunicipio %>% 
+        select("Código Município Completo", "Nome_Município", "Nome Região Geográfica Intermediária") %>% 
+        str_sub(codmunicipio$`Código Município Completo`, end = 6)
+
+
+
+
+
 # Renomeando variáveis-texto
 cagedbruto_ajust <- cagedbruto_ajust %>%
         dplyr::rename(UF = starts_with("UF"),
